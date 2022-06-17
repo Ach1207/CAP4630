@@ -49,6 +49,7 @@ class Checker(TwoPlayerGame):
 
         self.current_player = 1  # player 1 starts.
 
+    # moves when object on the white squares 
     def possible_moves_on_white_turn(self):
 
         table_pos = []
@@ -99,6 +100,7 @@ class Checker(TwoPlayerGame):
         self.board = board
         return table_pos
 
+    # function that determines the moves if landed on the black squares
     def possible_moves_on_black_turn(self):
         table_pos = []
         old_new_piece_pos = []
@@ -146,6 +148,7 @@ class Checker(TwoPlayerGame):
         self.board = board
         return table_pos
 
+    # Move function for either piece landed on black square or white square 
     def possible_moves(self):
         """
         """
@@ -155,6 +158,7 @@ class Checker(TwoPlayerGame):
         else:
             return self.possible_moves_on_white_turn()
 
+    #postion from table
     def get_piece_pos_from_table(self, table_pos):
         if self.current_player-1 == 0:
             x = np.where(table_pos == "W")
@@ -166,6 +170,7 @@ class Checker(TwoPlayerGame):
         assert len(np.where(table_pos != 0)[0]) == 16, f"In get_piece_pos_from_table(), there are {len(np.where(table_pos != 0)[0])} pieces on the board  \n {table_pos}"
         return [(i,j) for i,j in zip(x[0], x[1])]
 
+    # Moves on board
     def make_move(self, pos):
         
         self.players[self.current_player -1].pos = self.get_piece_pos_from_table(pos)
@@ -208,6 +213,7 @@ class Checker(TwoPlayerGame):
         white lose if black piece is in black territory
         """
 
+
     def is_over(self):
         
         return self.lose()
@@ -216,6 +222,7 @@ class Checker(TwoPlayerGame):
         game is over immediately when one player get one of its piece into opponent's territory.
         """
 
+    # Display of board 
     def show(self):
         """
         show 8*8 checker board.
@@ -231,6 +238,7 @@ class Checker(TwoPlayerGame):
         print('\n')
         print(board)
 
+    #return the scoring of the game 
     def scoring(self):
 
        return -100 if self.lose() else 0
